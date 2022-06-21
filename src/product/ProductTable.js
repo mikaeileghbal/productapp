@@ -26,6 +26,7 @@ export default function ProductTable({
         {products.map((product) => (
           <ProductTableRow
             key={product.id}
+            product={product}
             editCallback={editCallback}
             deleteCallback={deleteCallback}
           />

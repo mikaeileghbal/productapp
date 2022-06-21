@@ -7,6 +7,7 @@ export default function SupplierDisplay({
   saveCallback,
   deleteCallback,
 }) {
+  console.log(suppliers);
   const [state, setState] = useState({
     showEditor: false,
     selected: null,
@@ -48,7 +49,7 @@ export default function SupplierDisplay({
         />
         <div className="text-center">
           <button className="btn btn-primary m-1" onClick={createSupplier}>
-            Create Product
+            Create Supplier
           </button>
         </div>
       </div>

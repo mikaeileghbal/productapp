@@ -11,7 +11,7 @@ export default function SupplierTable({
       <thead>
         <tr>
           <th colSpan="5" className="bg-primary text-white text-center h4 p-2">
-            suppliers
+            Suppliers
           </th>
         </tr>
         <tr>
@@ -23,9 +23,10 @@ export default function SupplierTable({
         </tr>
       </thead>
       <tbody>
-        {suppliers.map((product) => (
+        {suppliers.map((supplier) => (
           <SupplierTableRow
-            key={product.id}
+            key={supplier.id}
+            supplier={supplier}
             editCallback={editCallback}
             deleteCallback={deleteCallback}
           />

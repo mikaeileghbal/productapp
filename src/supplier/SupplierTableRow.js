@@ -12,7 +12,6 @@ export default function SupplierTableRow({
       <td>{s.name}</td>
       <td>{s.city}</td>
       <td>{s.products.join(", ")}</td>
-      <td className="text-right">${Number(s.price).toFixed(2)}</td>
       <td>
         <button
           className="btn btn-sm btn-warning m-1"
