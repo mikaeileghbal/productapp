@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import ProductDisplay from "./product/ProductDisplay";
 import Selector from "./Selector";
 import SupplierDisplay from "./supplier/SupplierDisplay";
@@ -18,13 +18,18 @@ export default function ProductsAndSuppliers() {
   });
 
   const saveData = (collection, item) => {
+    console.log("save data", collection, item);
     if (item.id === "") {
       item.id = state.idCounter++;
-      setState({ ...state, [collection]: [collection].concat(item) });
+      setState({
+        ...state,
+        [collection]: state[collection].concat(item),
+        idCounter: state.idCounter++,
+      });
     } else {
       setState({
         ...state,
-        [collection]: [collection].map((stored) =>
+        [collection]: state[collection].map((stored) =>
           stored.id === item.id ? item : stored
         ),
       });
@@ -32,25 +37,30 @@ export default function ProductsAndSuppliers() {
   };
 
   const deleteData = (collection, item) => {
+    console.log("delete data", collection, item);
     setState({
       ...state,
-      [collection]: [collection].filter((stored) => stored.id !== item.id),
+      [collection]: state[collection].filter((stored) => stored.id !== item.id),
     });
   };
+
+  useEffect(() => {
+    console.log(state);
+  }, [state]);
 
   return (
     <Selector>
       <ProductDisplay
         name="Products"
         products={state.products}
-        saveCallback={(p) => saveData("Products", p)}
-        deleteCallback={(p) => deleteData("Products", p)}
+        saveCallback={(p) => saveData("products", p)}
+        deleteCallback={(p) => deleteData("products", p)}
       />
       <SupplierDisplay
         name="Suppliers"
         suppliers={state.suppliers}
-        saveCallback={(s) => saveData("Suppliers", s)}
-        deleteCallback={(s) => deleteData("Suppliers", s)}
+        saveCallback={(s) => saveData("suppliers", s)}
+        deleteCallback={(s) => deleteData("suppliers", s)}
       />
     </Selector>
   );
