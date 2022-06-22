@@ -7,7 +7,7 @@ export default function ProductTable({
   deleteCallback,
 }) {
   return (
-    <table className="table table-sm table-strippd text-center table-bordered">
+    <table className="table table-sm table-strippd text-center table-bordered table-hover">
       <thead>
         <tr>
           <th colSpan="5" className="bg-primary text-white text-center h4 p-2">

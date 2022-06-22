@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from "react";
-import ProductDisplay from "./product/ProductDisplay";
 import Selector from "./Selector";
-import SupplierDisplay from "./supplier/SupplierDisplay";
+import { ProductDisplay } from "./product/ProductDisplay";
+import { SupplierDisplay } from "./supplier/SupplierDisplay";
 
 export default function ProductsAndSuppliers() {
   const [state, setState] = useState({

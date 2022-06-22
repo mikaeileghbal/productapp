@@ -14,7 +14,8 @@ export default function Selector({ children }) {
             <button
               name={c.props.name}
               onClick={handleClick}
-              className={`btn btn-block m-2 ${
+              style={{ width: "100%" }}
+              className={`btn btn-block m-2 d-block ${
                 selection === c.props.name
                   ? "btn-primary active"
                   : "btn-secondary"

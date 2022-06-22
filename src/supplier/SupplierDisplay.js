@@ -1,8 +1,21 @@
 import React, { useState } from "react";
+import { deleteSupplier, saveSupplier } from "../store";
 import SupplierEditor from "./SupplierEditor";
 import SupplierTable from "./SupplierTable";
+import { connect } from "react-redux";
 
-export default function SupplierDisplay({
+const mapStateToProps = (storeData) => ({
+  suppliers: storeData.suppliers,
+});
+
+const mapDispatchToProps = {
+  saveCallback: saveSupplier,
+  deleteCallback: deleteSupplier,
+};
+
+const connectFunction = connect(mapStateToProps, mapDispatchToProps);
+
+export const SupplierDisplay = connectFunction(function ({
   suppliers,
   saveCallback,
   deleteCallback,
@@ -55,4 +68,4 @@ export default function SupplierDisplay({
       </div>
     );
   }
-}
+});

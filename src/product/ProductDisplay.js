@@ -1,8 +1,21 @@
 import React, { useState } from "react";
+import { deleteProduct, saveProduct } from "../store";
 import ProductEditor from "./ProductEditor";
 import ProductTable from "./ProductTable";
+import { connect } from "react-redux";
 
-export default function ProductDisplay({
+const mapStateToProps = (storeData) => ({
+  products: storeData.products,
+});
+
+const mapDispatchToProps = {
+  saveCallback: saveProduct,
+  deleteCallback: deleteProduct,
+};
+
+const connectFunction = connect(mapStateToProps, mapDispatchToProps);
+
+export const ProductDisplay = connectFunction(function ({
   products,
   saveCallback,
   deleteCallback,
@@ -54,4 +67,4 @@ export default function ProductDisplay({
       </div>
     );
   }
-}
+});
