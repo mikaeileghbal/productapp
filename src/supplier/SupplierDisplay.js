@@ -3,63 +3,38 @@ import { deleteSupplier, saveSupplier } from "../store";
 import SupplierEditor from "./SupplierEditor";
 import SupplierTable from "./SupplierTable";
 import { connect } from "react-redux";
+import { EditorConnector } from "../store/EditorConnector";
+import { SUPPLIERS } from "../store/dataTypes";
+import { TableConnector, tableConnector } from "../store/TableConnector";
+import { startCreatingSupplier } from "../store/stateActions";
+
+const connectedEditor = EditorConnector(SUPPLIERS, SupplierEditor);
+const connectedTable = TableConnector(SUPPLIERS, SupplierTable);
 
 const mapStateToProps = (storeData) => ({
-  suppliers: storeData.suppliers,
+  editing: storeData.stateData.editing,
+  selected: storeData.modelData.suppliers.find(
+    (s) => s.id === storeData.stateData.selectedId || {}
+  ),
 });
 
 const mapDispatchToProps = {
-  saveCallback: saveSupplier,
-  deleteCallback: deleteSupplier,
+  createSupplier: startCreatingSupplier,
 };
 
 const connectFunction = connect(mapStateToProps, mapDispatchToProps);
 
 export const SupplierDisplay = connectFunction(function ({
-  suppliers,
-  saveCallback,
-  deleteCallback,
+  editing,
+  selected,
+  createSupplier,
 }) {
-  console.log(suppliers);
-  const [state, setState] = useState({
-    showEditor: false,
-    selected: null,
-  });
-
-  const startEditing = (supplier) => {
-    setState({ showEditor: true, selected: supplier });
-  };
-
-  const cancelEdit = () => {
-    setState({ showEditor: false, selected: null });
-  };
-
-  const createSupplier = () => {
-    setState({ showEditor: true, selected: {} });
-  };
-
-  const saveSupplier = (supplier) => {
-    saveCallback(supplier);
-    setState({ showEditor: false, selected: null });
-  };
-
-  if (state.showEditor) {
-    return (
-      <SupplierEditor
-        key={state.selected.id || -1}
-        supplier={state.selected}
-        cancelCallback={cancelEdit}
-        saveCallback={saveSupplier}
-      />
-    );
+  if (editing) {
+    return <connectedEditor key={selected.id} />;
   } else {
     return (
       <div className="m-2">
-        <SupplierTable
-          suppliers={suppliers}
-          editCallback={startEditing}
-          deleteCallback={deleteCallback}
-        />
+        <connectedTable />
         <div className="text-center">
           <button className="btn btn-primary m-1" onClick={createSupplier}>
             Create Supplier
