@@ -12,9 +12,10 @@ const ConnectedTable = TableConnector(PRODUCTS, ProductTable);
 
 const mapStateToProps = (storeData) => ({
   editing: storeData.stateData.editing,
-  products: storeData.modelData.products.find(
-    (item) => item.id === storeData.stateData.selectedId
-  ),
+  selected:
+    storeData.modelData.products.find(
+      (item) => item.id === storeData.stateData.selectedId
+    ) || {},
 });
 
 const mapDispatchToProps = {
@@ -54,7 +55,6 @@ export const ProductDisplay = connectFunction(function ({
   if (editing) {
     return (
       <>
-        <p>Test</p>
         <ConnectedEditor key={selected.id || -1} />
       </>
       // <ProductEditor
