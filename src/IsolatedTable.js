@@ -1,12 +1,12 @@
 import React, { useEffect, useState } from "react";
 import RestDataSource from "./webservice/RestDataSource";
+import { Link } from "react-router-dom";
 
 export default function IsolatedTable() {
   const [products, setProducts] = useState([]);
 
-  const dataSource = new RestDataSource("http://localhost:3500/api/products");
-
   useEffect(() => {
+    const dataSource = new RestDataSource("http://localhost:3500/api/products");
     dataSource.GetData((data) => setProducts(data));
   }, []);
 
@@ -33,10 +33,26 @@ export default function IsolatedTable() {
             <td>{product.name}</td>
             <td>{product.category}</td>
             <td>{Number(product.price).toFixed(2)}</td>
-            <td />
+            <td>
+              <Link
+                to={`/isolated/edit/${product.id}`}
+                className="btn btn-sm btn-warning mx-2"
+              >
+                Edit
+              </Link>
+            </td>
           </tr>
         ))}
       </tbody>
+      <tfoot>
+        <tr className="text-center">
+          <td colSpan="5">
+            <Link to="/isolated/create" className="btn btn-info">
+              Create
+            </Link>
+          </td>
+        </tr>
+      </tfoot>
     </table>
   );
 }

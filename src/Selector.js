@@ -5,6 +5,7 @@ import {
   Routes,
   useLocation,
 } from "react-router-dom";
+import IsolatedEditor from "./IsolatedEditor";
 import IsolatedTable from "./IsolatedTable";
 import { ProductDisplay } from "./product/ProductDisplay";
 import { SupplierDisplay } from "./supplier/SupplierDisplay";
@@ -64,7 +65,8 @@ export default function Selector({ children }) {
           <Routes>
             <Route path="/products" element={<ProductDisplay />} />
             <Route path="/suppliers" element={<SupplierDisplay />} />
-            <Route path="/isolated" element={<IsolatedTable />} />
+            <Route exact={true} path="/isolated" element={<IsolatedTable />} />
+            <Route path="/isolated/:mode/:id" element={<IsolatedEditor />} />
           </Routes>
         </div>
         {/*
